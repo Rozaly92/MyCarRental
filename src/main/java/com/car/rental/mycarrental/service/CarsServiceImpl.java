@@ -1,12 +1,10 @@
 package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.dao.CarRepository;
-import com.car.rental.mycarrental.entity.Body;
 import com.car.rental.mycarrental.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

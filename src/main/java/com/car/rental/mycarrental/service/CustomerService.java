@@ -1,6 +1,5 @@
 package com.car.rental.mycarrental.service;
 
-import com.car.rental.mycarrental.entity.Body;
 import com.car.rental.mycarrental.entity.Customer;
 import org.springframework.stereotype.Service;
 

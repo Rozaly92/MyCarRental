@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class BodyServiceImpl implements BodyService {
-   @Autowired
+    @Autowired
     private BodyRepository bodyRepository;
 
 
@@ -27,17 +27,17 @@ public class BodyServiceImpl implements BodyService {
     }
 
     @Override
-    public Body getBody(int id){
-        Body body= null;
+    public Body getBody(int id) {
+        Body body = null;
         Optional<Body> newbody = bodyRepository.findById(id);
-        if(newbody.isPresent()){
+        if (newbody.isPresent()) {
             body = newbody.get();
         }
         return body;
     }
 
     @Override
-    public void deleteBody(int id){
+    public void deleteBody(int id) {
         bodyRepository.deleteById(id);
     }
 }
