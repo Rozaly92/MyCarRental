@@ -9,4 +9,6 @@ import java.util.List;
 public interface GearBoxService {
     public List<GearBox> getAllGearBoxes();
     public void saveGearBox(GearBox gearBox);
+    public GearBox getGearBox(int id);
+    public void deleteGearBox(int id);
 }

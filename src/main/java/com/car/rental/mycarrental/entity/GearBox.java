@@ -1,5 +1,7 @@
 package com.car.rental.mycarrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class GearBox {
     private String gearBox;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gearBox")
+    @JsonIgnore
     private List<Car> carsList;
 
     public GearBox() {

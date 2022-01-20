@@ -1,5 +1,7 @@
 package com.car.rental.mycarrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +21,14 @@ public class Customer {
     private String phoneNum;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<Orders> ordersList;
+    @JsonIgnore
+    private List<Order> ordersList;
 
-    public List<Orders> getOrdersList() {
+    public List<Order> getOrdersList() {
         return ordersList;
     }
 
-    public void setOrdersList(List<Orders> ordersList) {
+    public void setOrdersList(List<Order> ordersList) {
         this.ordersList = ordersList;
     }
 
@@ -65,13 +68,14 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
+                "cusId='"+cusId+
                 "cusName='" + cusName + '\'' +
                 ", cardNum=" + cardNum +
                 ", phoneNum='" + phoneNum + '\'' +
                 '}';
     }
 
-    public void addCustomerToOrders(Orders order) {
+    public void addCustomerToOrders(Order order) {
         if (ordersList == null) {
             ordersList = new ArrayList<>();
         }

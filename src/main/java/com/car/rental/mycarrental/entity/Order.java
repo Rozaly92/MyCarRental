@@ -1,10 +1,12 @@
 package com.car.rental.mycarrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -20,12 +22,14 @@ public class Orders {
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "empl_id")
+    @JsonIgnore
     private Employee employee;
 
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
+    @JsonIgnore
     private Car car;
 
     public Car getCar() {
@@ -52,7 +56,7 @@ public class Orders {
         this.customer = customer;
     }
 
-    public Orders() {
+    public Order() {
     }
 
     public int getId() {

@@ -1,5 +1,7 @@
 package com.car.rental.mycarrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +38,14 @@ public class Car {
     private Body body;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<Orders> ordersList;
+    @JsonIgnore
+    private List<Order> ordersList;
 
-    public List<Orders> getOrdersList() {
+    public List<Order> getOrdersList() {
         return ordersList;
     }
 
-    public void setOrdersList(List<Orders> ordersList) {
+    public void setOrdersList(List<Order> ordersList) {
         this.ordersList = ordersList;
     }
 
@@ -137,7 +140,7 @@ public class Car {
         this.year = year;
     }
 
-    public void addCustomerToOrders(Orders order) {
+    public void addCustomerToOrders(Order order) {
         if (ordersList == null) {
             ordersList = new ArrayList<>();
         }

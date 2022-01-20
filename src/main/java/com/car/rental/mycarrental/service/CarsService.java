@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface CarsService {
     public List<Car> getAllCars();
-
-    public void saveCars(Car car);
+    public void saveCar(Car car);
+    public Car getCar(int id);
+    public void deleteCar(int id);
 }

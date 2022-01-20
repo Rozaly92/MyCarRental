@@ -1,13 +1,15 @@
 package com.car.rental.mycarrental.service;
 
-import com.car.rental.mycarrental.entity.Orders;
+import com.car.rental.mycarrental.entity.Order;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public interface OrdersService {
-    @Transactional
-    List<Orders> getAllOrders();
+
+   public  List<Order> getAllOrders();
+   public void saveOrder(Order order);
+   public Order getOrder(int id);
+   public void deleteOrder(int id);
 }

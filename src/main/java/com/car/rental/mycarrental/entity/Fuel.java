@@ -1,8 +1,11 @@
 package com.car.rental.mycarrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "fuel")
@@ -16,6 +19,7 @@ public class Fuel {
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fuel")
+    @JsonIgnore
     private List<Car> carsList;
 
     public Fuel() {
