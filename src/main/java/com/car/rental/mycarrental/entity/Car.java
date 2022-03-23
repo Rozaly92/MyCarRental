@@ -76,11 +76,12 @@ public class Car {
     public Car() {
     }
 
-    public Car(String carModel, String equipment, int pricePerDay, int year) {
+    public Car(String carModel, String equipment, int pricePerDay, int year, int id) {
         this.carModel = carModel;
         this.equipment = equipment;
         this.pricePerDay = pricePerDay;
         this.year = year;
+        this.id = id;
     }
 
 //    public List<Fuel> getFuel() {

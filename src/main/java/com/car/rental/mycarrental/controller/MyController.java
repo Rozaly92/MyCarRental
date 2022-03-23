@@ -14,6 +14,12 @@ import java.util.List;
 @RestController
 public class MyController {
 
+    @GetMapping("/api")
+    public String greeting(){
+
+        return "Hello my dear";
+    }
+
 
 
 
