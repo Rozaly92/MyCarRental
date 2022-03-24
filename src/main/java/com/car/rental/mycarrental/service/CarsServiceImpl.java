@@ -3,6 +3,9 @@ package com.car.rental.mycarrental.service;
 import com.car.rental.mycarrental.dao.CarRepository;
 import com.car.rental.mycarrental.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +40,19 @@ public class CarsServiceImpl implements CarsService {
     public void deleteCar(int id) {
         carRepository.deleteById(id);
     }
+//
+//    @Override
+//    public Page<Car> findAll(Pageable pageable) {
+//        return carRepository.findAll(pageable);
+//    }
 
+
+    @Override
+    public Page<Car> findAll(int offset, int pageSize) {
+        Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize));
+
+        return allCars;
+    }
 
 }
 

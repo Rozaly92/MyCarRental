@@ -1,6 +1,9 @@
 package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.entity.Car;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,4 +14,5 @@ public interface CarsService {
     public void saveCar(Car car);
     public Car getCar(int id);
     public void deleteCar(int id);
+    Page<Car> findAll(int offset, int pageSize);
 }
