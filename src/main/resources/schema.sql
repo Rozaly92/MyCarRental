@@ -59,6 +59,18 @@ insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fue
 values(5, "honda", "abs", 132, 2018, 1,2,1);
 insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
 values(6, "dacia", "abs", 103, 2011, 4,3,1);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(7, "audi", "abs", 145, 2018, 4, 4, 1);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(8, "nissan", "abs", 176, 2021, 3,2,2);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(9, "volvo", "abs", 152, 2019, 2,3, 2);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(10, "mitsubishi", "abs",234 , 2022, 2, 1, 1);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(11, "peugeot", "abs", 128, 2018, 1,2,1);
+insert into cars(car_id, car_model, equipment, price_per_day, year, body_id, fuel_id, gear_id)
+values(12, "volkswagen", "abs", 115, 2017, 1,3,2);
 
 
 insert into orders(order_id, arend_time, car_id, cus_id, empl_id)

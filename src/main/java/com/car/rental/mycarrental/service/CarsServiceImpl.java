@@ -5,7 +5,7 @@ import com.car.rental.mycarrental.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +40,11 @@ public class CarsServiceImpl implements CarsService {
     public void deleteCar(int id) {
         carRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Car> findAll(int offset, int pageSize, String field) {
+        return null;
+    }
 //
 //    @Override
 //    public Page<Car> findAll(Pageable pageable) {
@@ -54,5 +59,17 @@ public class CarsServiceImpl implements CarsService {
         return allCars;
     }
 
+
+    public Page<Car> findAllWithPaginationAndSorting(int offset, int pageSize, String field) {
+        Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+
+        return allCars;
+    }
+
+    public Page<Car> findAllWithPaginationAndSortingInDescendingOrder(int offset, int pageSize, String field) {
+        Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.Direction.DESC, field));
+
+        return allCars;
+    }
 }
 
