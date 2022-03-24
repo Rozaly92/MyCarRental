@@ -19,11 +19,10 @@ public class CarController {
     @Autowired
     private CarsServiceImpl carsServiceImpl;
 
-    @CrossOrigin(origins = "*")
+   // @CrossOrigin(origins = "*")
     @GetMapping("/cars")
-    public List<Car> showAllCars() {
+    public List<Car> showAllCars(){
         List<Car> allCars = carsService.getAllCars();
-
         return allCars;
     }
 

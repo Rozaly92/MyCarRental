@@ -3,6 +3,7 @@ package com.car.rental.mycarrental.service;
 import com.car.rental.mycarrental.dao.CarRepository;
 import com.car.rental.mycarrental.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,8 +17,10 @@ public class CarsServiceImpl implements CarsService {
     @Autowired
     private CarRepository carRepository;
 
+
     @Override
-    public List<Car> getAllCars() {
+    @Cacheable("cars")
+    public List<Car> getAllCars(){
         return carRepository.findAll();
     }
 
@@ -45,12 +48,6 @@ public class CarsServiceImpl implements CarsService {
     public Page<Car> findAll(int offset, int pageSize, String field) {
         return null;
     }
-//
-//    @Override
-//    public Page<Car> findAll(Pageable pageable) {
-//        return carRepository.findAll(pageable);
-//    }
-
 
     @Override
     public Page<Car> findAll(int offset, int pageSize) {
