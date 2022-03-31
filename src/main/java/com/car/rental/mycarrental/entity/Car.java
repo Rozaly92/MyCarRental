@@ -84,6 +84,16 @@ public class Car {
         this.id = id;
     }
 
+    public Car(int id, String carModel, String equipment, int pricePerDay, int year, Fuel fuel, GearBox gearBox, Body body) {
+        this.id = id;
+        this.carModel = carModel;
+        this.equipment = equipment;
+        this.pricePerDay = pricePerDay;
+        this.year = year;
+        this.fuel = fuel;
+        this.gearBox = gearBox;
+        this.body = body;
+    }
 //    public List<Fuel> getFuel() {
 //        return fuel;
 //    }

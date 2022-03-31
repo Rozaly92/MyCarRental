@@ -23,6 +23,11 @@ public class GearBox {
     public GearBox() {
     }
 
+    public GearBox(int id, String gearBox) {
+        this.id = id;
+        this.gearBox = gearBox;
+    }
+
     public List<Car> getCarsList() {
         return carsList;
     }

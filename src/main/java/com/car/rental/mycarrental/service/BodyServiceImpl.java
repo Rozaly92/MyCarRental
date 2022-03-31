@@ -37,7 +37,7 @@ public class BodyServiceImpl implements BodyService {
     }
 
     @Override
-    public void deleteBody(int id) {
+    public void deleteBody(Integer id) {
         bodyRepository.deleteById(id);
     }
 }

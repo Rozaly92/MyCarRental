@@ -4,6 +4,7 @@ import com.car.rental.mycarrental.entity.Body;
 import com.car.rental.mycarrental.exception_handling.NoSuchBodyException;
 import com.car.rental.mycarrental.service.BodyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,14 +44,15 @@ public class BodyController {
 
 
     @DeleteMapping("/bodies/{id}")
-    public String deleteBody(@PathVariable int id) {
+    public ResponseEntity<Object> deleteBody(@PathVariable("id") Integer id) {
         Body body = bodyService.getBody(id);
         if (body == null) {
             throw new NoSuchBodyException("There is no body with id " +
                     id + " in database");
         }
         bodyService.deleteBody(id);
-        return "Body with id = " + id + " was deleted!";
+//        return "Body with id = " + id + " was deleted!";
+        return ResponseEntity.noContent().build();
     }
 
 

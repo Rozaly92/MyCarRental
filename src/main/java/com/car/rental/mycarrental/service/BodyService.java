@@ -11,5 +11,5 @@ public interface BodyService {
     public List<Body> getAllBodies();
     public void saveBody(Body body);
     public Body getBody(int id);
-    public void deleteBody(int id);
+    public void deleteBody(Integer id);
 }

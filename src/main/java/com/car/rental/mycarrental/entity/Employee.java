@@ -12,7 +12,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empl_id")
-    private int cusId;
+    private int empId;
     @Column(name = "empl_name")
     private String emplName;
     @Column(name = "location")
@@ -38,12 +38,18 @@ public class Employee {
         this.location = location;
     }
 
-    public int getCusId() {
-        return cusId;
+    public Employee(int empId, String emplName, String location) {
+        this.empId = empId;
+        this.emplName = emplName;
+        this.location = location;
     }
 
-    public void setCusId(int cusId) {
-        this.cusId = cusId;
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public String getEmplName() {

@@ -35,6 +35,13 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(int cusId, String cusName, int cardNum, String phoneNum) {
+        this.cusId = cusId;
+        this.cusName = cusName;
+        this.cardNum = cardNum;
+        this.phoneNum = phoneNum;
+    }
+
     public Customer(String cusName, int cardNum, String phoneNum) {
         this.cusName = cusName;
         this.cardNum = cardNum;
@@ -63,6 +70,14 @@ public class Customer {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public int getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(int cusId) {
+        this.cusId = cusId;
     }
 
     @Override

@@ -32,6 +32,11 @@ public class Fuel {
         return carsList;
     }
 
+    public Fuel(int id, String fuel) {
+        this.id = id;
+        this.fuel = fuel;
+    }
+
     public void setCarsList(List<Car> carsList) {
         this.carsList = carsList;
     }

@@ -19,6 +19,11 @@ public class Body {
     @JsonIgnore
     private List<Car> carsList;
 
+    public Body(int id, String body) {
+        this.id=id;
+        this.body=body;
+    }
+
     public List<Car> getCarsList() {
         return carsList;
     }
