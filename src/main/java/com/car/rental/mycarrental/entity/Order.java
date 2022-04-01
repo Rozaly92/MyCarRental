@@ -32,6 +32,14 @@ public class Order {
     @JsonIgnore
     private Car car;
 
+    public Order(int id, String arendTime, Customer customer, Employee employee, Car car) {
+        this.id = id;
+        this.arendTime = arendTime;
+        this.customer = customer;
+        this.employee = employee;
+        this.car = car;
+    }
+
     public Car getCar() {
         return car;
     }
