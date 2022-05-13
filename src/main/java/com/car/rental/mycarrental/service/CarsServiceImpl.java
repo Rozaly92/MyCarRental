@@ -2,6 +2,7 @@ package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.dao.CarRepository;
 import com.car.rental.mycarrental.entity.Car;
+import com.car.rental.mycarrental.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -18,43 +19,43 @@ public class CarsServiceImpl implements CarsService {
     private CarRepository carRepository;
 
 
-    @Override
-    @Cacheable("cars")
-    public List<Car> getAllCars(){
-        return carRepository.findAll();
-    }
-
-    @Override
-    public void saveCar(Car car) {
-        carRepository.save(car);
-    }
-
-    @Override
-    public Car getCar(int id) {
-        Car car= null;
-        Optional<Car> newCar = carRepository.findById(id);
-        if(newCar.isPresent()){
-            car = newCar.get();
-        }
-        return car;
-    }
-
-    @Override
-    public void deleteCar(int id) {
-        carRepository.deleteById(id);
-    }
-
-    @Override
-    public Page<Car> findAll(int offset, int pageSize, String field) {
-        return null;
-    }
-
-    @Override
-    public Page<Car> findAll(int offset, int pageSize) {
-        Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize));
-
-        return allCars;
-    }
+//    @Override
+//    @Cacheable("cars")
+//    public List<Car> getAllCars(){
+//        return carRepository.findAll();
+//    }
+//
+//    @Override
+//    public void saveCar(Car car) {
+//        carRepository.save(car);
+//    }
+//
+//    @Override
+//    public Car getCar(int id) {
+//        Car car= null;
+//        Optional<Car> newCar = carRepository.findById(id);
+//        if(newCar.isPresent()){
+//            car = newCar.get();
+//        }
+//        return car;
+//    }
+//
+//    @Override
+//    public void deleteCar(int id) {
+//        carRepository.deleteById(id);
+//    }
+//
+//    @Override
+//    public Page<Car> findAll(int offset, int pageSize, String field) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Page<Car> findAll(int offset, int pageSize) {
+//        Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize));
+//
+//        return allCars;
+//    }
 
 
     public Page<Car> findAllWithPaginationAndSorting(int offset, int pageSize, String field) {
@@ -67,6 +68,50 @@ public class CarsServiceImpl implements CarsService {
         Page<Car> allCars = carRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.Direction.DESC, field));
 
         return allCars;
+    }
+
+    @Override
+    public List<Car> getCars() {
+        return carRepository.findAll();
+    }
+
+    @Override
+    public Optional<Car> getCarById(Integer id) {
+        if (!carRepository.existsById(id))
+            throw new NotFoundException(id);
+        return carRepository.findById(id);
+    }
+
+    @Override
+    public Car saveCar(Car car) {
+        return carRepository.save(car);
+    }
+
+    @Override
+    public void updateCar(Car car, Integer id) {
+     if(!carRepository.existsById(id))
+         throw new NotFoundException(id);
+
+     Car current = carRepository.getById(id);
+     current.updateCar(car);
+     carRepository.save(current);
+    }
+
+    @Override
+    public void deleteCar(Integer id) {
+    if(!carRepository.existsById(id))
+        throw new NotFoundException(id);
+    carRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Car> findAll(int offset, int pageSize, String field) {
+        return null;
+    }
+
+    @Override
+    public Page<Car> findAll(int offset, int pageSize) {
+        return null;
     }
 }
 

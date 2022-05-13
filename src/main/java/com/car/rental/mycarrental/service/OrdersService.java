@@ -4,12 +4,14 @@ import com.car.rental.mycarrental.entity.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface OrdersService {
 
-   public  List<Order> getAllOrders();
-   public void saveOrder(Order order);
-   public Order getOrder(int id);
-   public void deleteOrder(int id);
+   List<Order> getOrders();
+   Optional<Order> getOrderById(Integer id);
+   Order saveOrder(Order order);
+   void updateOrder(Order order, Integer id);
+   void deleteOrder(Integer id);
 }

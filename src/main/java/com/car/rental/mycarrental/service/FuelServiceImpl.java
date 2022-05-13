@@ -2,6 +2,7 @@ package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.dao.FuelRepository;
 import com.car.rental.mycarrental.entity.Fuel;
+import com.car.rental.mycarrental.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +16,36 @@ public class FuelServiceImpl implements FuelService {
 
 
     @Override
-    public List<Fuel> getAllFuels() {
+    public List<Fuel> getFuels() {
         return fuelRepository.findAll();
     }
 
     @Override
-    public void saveFuel(Fuel fuel) {
-fuelRepository.save(fuel);
+    public Optional<Fuel> getFuelById(Integer id) {
+       if(!fuelRepository.existsById(id))
+           throw new NotFoundException(id);
+       return fuelRepository.findById(id);
     }
 
     @Override
-    public Fuel getFuel(int id) {
-       Fuel fuel = null;
-        Optional<Fuel> newFuel = fuelRepository.findById(id);
-        if(newFuel.isPresent()){
-            fuel = newFuel.get();
-        }
-        return fuel;
+    public Fuel saveFuel(Fuel fuel) {
+        return fuelRepository.save(fuel);
     }
 
     @Override
-    public void deleteFuel(int id) {
+    public void updateFuel(Fuel fuel, Integer id) {
+        if(!fuelRepository.existsById(id))
+            throw new NotFoundException(id);
+
+        Fuel current = fuelRepository.getById(id);
+        current.updateFuel(fuel);
+        fuelRepository.save(current);
+    }
+
+    @Override
+    public void deleteFuel(Integer id) {
+        if(!fuelRepository.existsById(id))
+            throw new NotFoundException(id);
         fuelRepository.deleteById(id);
     }
 }

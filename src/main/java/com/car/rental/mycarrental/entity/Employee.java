@@ -83,5 +83,10 @@ public class Employee {
                 ", location='" + location + '\'' +
                 '}';
     }
+
+    public void updateEmployee(Employee employee){
+        this.setEmplName(employee.getEmplName());
+        this.setLocation(employee.getLocation());
+    }
 }
 

@@ -4,11 +4,13 @@ import com.car.rental.mycarrental.entity.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface EmployeeService {
-    public List<Employee> getAllEmployees();
-    public void saveEmployee(Employee employee);
-    public Employee getEmployee(int id);
-    public void deleteEmployee(int id);
+    List<Employee> getEmployees();
+    Optional<Employee> getEmployeeById(Integer id);
+    Employee saveEmployee(Employee employee);
+    void updateEmployee(Employee employee, Integer id);
+   void deleteEmployee(int id);
 }

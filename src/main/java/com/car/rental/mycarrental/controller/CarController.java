@@ -2,13 +2,17 @@ package com.car.rental.mycarrental.controller;
 
 import com.car.rental.mycarrental.entity.Car;
 import com.car.rental.mycarrental.entity.Fuel;
-import com.car.rental.mycarrental.exception_handling.NoSuchCarException;
+import com.car.rental.mycarrental.exception.InternalServerException;
 import com.car.rental.mycarrental.service.CarsService;
 import com.car.rental.mycarrental.service.CarsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -21,53 +25,42 @@ public class CarController {
 
    // @CrossOrigin(origins = "*")
     @GetMapping("/cars")
-    public List<Car> showAllCars(){
-        List<Car> allCars = carsService.getAllCars();
-        return allCars;
+    public ResponseEntity<Object> getCars(){
+       return ResponseEntity.ok().body(carsService.getCars());
     }
 
-
-    @GetMapping("/cars/{id}")
-    public Car getCar(@PathVariable int id) {
-        Car car = carsService.getCar(id);
-        if (car == null) {
-            throw new NoSuchCarException("There is no car with id " +
-                    id + " in database");
-        }
-        return car;
-
+    @GetMapping("/cars/{carId}")
+    public ResponseEntity<Object> getCarById(
+            @PathVariable("carId") Integer carId){
+        return ResponseEntity.ok().body(carsService.getCarById(carId));
     }
 
     @PostMapping("/cars")
-    public Car addNewCar(@RequestBody Car car) {
-        Car carToSave = new Car();
-        carToSave = car;
-        if (car.getFuel().equals("benzin")) {
-            Fuel benzinFuel = car.getFuel();
-            benzinFuel.setId(1);
-            carToSave.setFuel(benzinFuel);
+    public ResponseEntity<Object> addNewCar(@Valid @RequestBody Car car){
+        Car newCar= carsService.saveCar(car);
+        try{
+            return ResponseEntity
+                    .created(new URI(String.format("/cars/%s", newCar)))
+                    .build();
+        }catch (URISyntaxException e){
+            throw new InternalServerException("The URI in the Location header in POST /cars has an error");
         }
-        carsService.saveCar(carToSave);
-        return carToSave;
     }
 
-
-    @PutMapping("/cars")
-    public Car updateCar(@RequestBody Car car) {
-        carsService.saveCar(car);
-        return car;
+    @PatchMapping("/cars/{carId}")
+    public ResponseEntity<Object> updateCar(@RequestBody Car car,
+                                            @PathVariable("carId") Integer carId){
+        carsService.updateCar(car, carId);
+        return ResponseEntity.noContent().build();
     }
-
 
     @DeleteMapping("/cars/{id}")
-    public String deleteCar(@PathVariable int id) {
-        Car car = carsService.getCar(id);
-        if (car == null) {
-            throw new NoSuchCarException("There is no car with id " +
-                    id + " in database");
-        }
-        return "Car with id = " + id + " was deleted!";
+    public ResponseEntity<Object> deleteCar(@PathVariable("id")Integer id){
+        carsService.deleteCar(id);
+        return ResponseEntity.noContent().build();
     }
+
+
 
 
     @GetMapping("/cars/{offset}/{pageSize}")

@@ -4,12 +4,14 @@ import com.car.rental.mycarrental.entity.Fuel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface FuelService {
 
-    public List<Fuel> getAllFuels();
-    public void saveFuel(Fuel fuel);
-    public Fuel getFuel(int id);
-    public void deleteFuel(int id);
+    List<Fuel> getFuels();
+    Optional<Fuel> getFuelById(Integer id);
+    Fuel saveFuel(Fuel fuel);
+    void updateFuel(Fuel fuel, Integer id);
+     void deleteFuel(Integer id);
 }

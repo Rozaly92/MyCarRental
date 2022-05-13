@@ -5,11 +5,14 @@ import com.car.rental.mycarrental.entity.Body;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface BodyService {
-    public List<Body> getAllBodies();
-    public void saveBody(Body body);
-    public Body getBody(int id);
-    public void deleteBody(Integer id);
+    List<Body> getBodies();
+    Optional<Body> getBodyById(Integer id);
+    Body saveBody(Body body);
+    void updateBody(Body body, Integer id);
+    void deleteBody(Integer id);
+
 }

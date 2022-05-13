@@ -2,7 +2,9 @@ package com.car.rental.mycarrental.service;
 
 
 import com.car.rental.mycarrental.dao.CustomerRepository;
+import com.car.rental.mycarrental.entity.Car;
 import com.car.rental.mycarrental.entity.Customer;
+import com.car.rental.mycarrental.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,32 +13,40 @@ import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
+
     @Autowired
     private CustomerRepository customerRepository;
-
-
     @Override
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
-         customerRepository.save(customer);
+    public Optional<Customer> getCustomerById(Integer id) {
+       if(!customerRepository.existsById(id))
+           throw new NotFoundException(id);
+       return customerRepository.findById(id);
     }
 
     @Override
-    public Customer getCustomer(int id) {
-     Customer customer = null;
-     Optional<Customer> newCustomer = customerRepository.findById(id);
-     if(newCustomer.isPresent()){
-         customer= newCustomer.get();
-     }
-     return customer;
+    public Customer saveCustomer(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void deleteCustomer(int id) {
+    public void updateCustomer(Customer customer, Integer id) {
+        if(!customerRepository.existsById(id))
+            throw new NotFoundException(id);
+
+        Customer current = customerRepository.getById(id);
+        current.updateCustomer(customer);
+        customerRepository.save(current);
+    }
+
+    @Override
+    public void deleteCustomer(Integer id) {
+        if(!customerRepository.existsById(id))
+            throw new NotFoundException(id);
         customerRepository.deleteById(id);
     }
 }

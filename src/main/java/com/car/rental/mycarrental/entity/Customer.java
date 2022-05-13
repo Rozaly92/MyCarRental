@@ -97,4 +97,11 @@ public class Customer {
         ordersList.add(order);
         order.setCustomer(this);
     }
+
+    public void updateCustomer(Customer customer){
+        //this.setCusId(customer.getCusId());
+        this.setCardNum(customer.getCardNum());
+        this.setCusName(customer.getCusName());
+        this.setPhoneNum(customer.getPhoneNum());
+    }
 }

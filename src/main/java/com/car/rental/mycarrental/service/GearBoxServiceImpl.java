@@ -2,6 +2,7 @@ package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.dao.GearBoxRepository;
 import com.car.rental.mycarrental.entity.GearBox;
+import com.car.rental.mycarrental.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +16,36 @@ public class GearBoxServiceImpl implements GearBoxService {
 
 
     @Override
-    public List<GearBox> getAllGearBoxes() {
+    public List<GearBox> getGearBoxes() {
         return gearBoxRepository.findAll();
     }
 
     @Override
-    public void saveGearBox(GearBox gearBox) {
-        gearBoxRepository.save(gearBox);
+    public Optional<GearBox> getGearBoxById(Integer id) {
+        if(!gearBoxRepository.existsById(id))
+            throw new NotFoundException(id);
+        return gearBoxRepository.findById(id);
     }
 
     @Override
-    public GearBox getGearBox(int id) {
-       GearBox gearBox = null;
-        Optional<GearBox> newGearBox = gearBoxRepository.findById(id);
-        if(newGearBox.isPresent()){
-            gearBox = newGearBox.get();
-        }
-        return gearBox;
+    public GearBox saveGearBox(GearBox gearBox) {
+        return gearBoxRepository.save(gearBox);
     }
 
     @Override
-    public void deleteGearBox(int id) {
+    public void updateGearBox(GearBox gearBox, Integer id) {
+        if(!gearBoxRepository.existsById(id))
+            throw new NotFoundException(id);
+
+        GearBox current = gearBoxRepository.getById(id);
+        current.updateGearBox(gearBox);
+        gearBoxRepository.save(current);
+    }
+
+    @Override
+    public void deleteGearBox(Integer id) {
+        if(!gearBoxRepository.existsById(id))
+            throw new NotFoundException(id);
         gearBoxRepository.deleteById(id);
     }
 }

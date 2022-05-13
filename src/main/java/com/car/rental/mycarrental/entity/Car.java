@@ -171,4 +171,15 @@ public class Car {
                 ", body=" + body +
                 '}';
     }
+
+    public void updateCar(Car car) {
+       // this.setId(car.getId());
+        this.setBody(car.getBody());
+        this.setCarModel(car.getCarModel());
+        this.setEquipment(car.getEquipment());
+        this.setFuel(car.getFuel());
+        this.setGearBox(car.getGearBox());
+        this.setPricePerDay(car.getPricePerDay());
+        this.setYear(car.getYear());
+    }
 }

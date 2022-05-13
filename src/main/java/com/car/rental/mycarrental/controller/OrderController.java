@@ -1,11 +1,16 @@
 package com.car.rental.mycarrental.controller;
 
+import com.car.rental.mycarrental.entity.Employee;
 import com.car.rental.mycarrental.entity.Order;
-import com.car.rental.mycarrental.exception_handling.NoSuchFuelException;
+import com.car.rental.mycarrental.exception.InternalServerException;
 import com.car.rental.mycarrental.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -15,39 +20,39 @@ public class OrderController {
 
 
     @GetMapping("/orders")
-    public List<Order> showOrders() {
-        List<Order> allOrders = ordersService.getAllOrders();
-        return allOrders;
+    public ResponseEntity<Object> getOrders() {
+        return ResponseEntity.ok().body(ordersService.getOrders());
     }
 
     @GetMapping("/orders/{id}")
-    public Order getOrder(@PathVariable int id) {
-        Order order = ordersService.getOrder(id);
-        if (order == null) {
-            throw new NoSuchFuelException("There is no order with ID = " + id + " in database");
-        }
-        return order;
+    public ResponseEntity<Object> getOrderById(
+            @PathVariable("id") Integer id){
+        return ResponseEntity.ok().body(ordersService.getOrderById(id));
     }
 
     @PostMapping("/orders")
-    public Order addNewOrder(@RequestBody Order order) {
-        ordersService.saveOrder(order);
-        return order;
+    public ResponseEntity<Object> addNewOrder(@Valid @RequestBody Order order) {
+        Order newOrder = ordersService.saveOrder(order);
+        try{
+            return ResponseEntity
+                    .created(new URI(String.format("/orders/%s", newOrder)))
+                    .build();
+        } catch (URISyntaxException e) {
+            throw new InternalServerException("The URI in the Location header in POST /orders has an error");
+        }
     }
 
-    @PutMapping("/orders")
-    public Order updateOrder(@RequestBody Order order) {
-        ordersService.saveOrder(order);
-        return order;
+
+    @PatchMapping("/orders/{id}")
+    public ResponseEntity<Object> updateOrder(@RequestBody Order order,
+                                                 @PathVariable("id") Integer id) {
+        ordersService.updateOrder(order,id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/orders/{id}")
-    public String deleteOrder(@PathVariable int id) {
-        Order order = ordersService.getOrder(id);
-        if (order == null) {
-            throw new NoSuchFuelException("There is no order with ID = " + id + " in database");
-        }
+    public ResponseEntity<Object> deleteOrder(@PathVariable("id") Integer id) {
         ordersService.deleteOrder(id);
-        return "Order with id = " + id + " was deleted!";
+        return ResponseEntity.noContent().build();
     }
 }

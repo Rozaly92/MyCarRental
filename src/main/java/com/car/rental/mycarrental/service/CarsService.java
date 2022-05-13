@@ -4,14 +4,19 @@ import com.car.rental.mycarrental.entity.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface CarsService {
-    public List<Car> getAllCars();
-    public void saveCar(Car car);
-    public Car getCar(int id);
-    public void deleteCar(int id);
+    List<Car> getCars();
+    Optional<Car> getCarById(Integer id);
+    Car saveCar(Car car);
+    void updateCar(Car car, Integer id);
+    void deleteCar(Integer id);
+
+
     Page<Car> findAll(int offset, int pageSize, String field);
 
     Page<Car> findAll(int offset, int pageSize);

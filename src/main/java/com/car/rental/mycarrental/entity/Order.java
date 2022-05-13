@@ -82,4 +82,12 @@ public class Order {
     public void setArendTime(String arendTime) {
         this.arendTime = arendTime;
     }
+
+    public void updateOrer(Order order) {
+        //this.setId(order.getId());
+        this.setCar(order.getCar());
+        this.setArendTime(order.getArendTime());
+        this.setCustomer(order.getCustomer());
+        this.setEmployee(order.getEmployee());
+    }
 }

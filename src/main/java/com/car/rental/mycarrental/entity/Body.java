@@ -55,5 +55,8 @@ public class Body {
         this.body = body;
     }
 
-
+    public void updateBody(Body body) {
+        //this.setId(body.getId());
+        this.setBody(body.getBody());
+    }
 }

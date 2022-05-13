@@ -4,11 +4,14 @@ import com.car.rental.mycarrental.entity.GearBox;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface GearBoxService {
-    public List<GearBox> getAllGearBoxes();
-    public void saveGearBox(GearBox gearBox);
-    public GearBox getGearBox(int id);
-    public void deleteGearBox(int id);
+    List<GearBox> getGearBoxes();
+    Optional<GearBox> getGearBoxById(Integer id);
+    GearBox saveGearBox(GearBox gearBox);
+    void updateGearBox(GearBox gearBox, Integer id);
+    void deleteGearBox(Integer id);
+
 }

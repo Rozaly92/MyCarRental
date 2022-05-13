@@ -71,4 +71,9 @@ public class Fuel {
         return fuel;
 
     }
+
+    public void updateFuel(Fuel fuel) {
+       // this.setId(fuel.getId());
+        this.setFuel(fuel.getFuel());
+    }
 }

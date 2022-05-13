@@ -2,6 +2,7 @@ package com.car.rental.mycarrental.service;
 
 import com.car.rental.mycarrental.dao.OrdersRepository;
 import com.car.rental.mycarrental.entity.Order;
+import com.car.rental.mycarrental.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +16,37 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     @Override
-    public List<Order> getAllOrders() {
+    public List<Order> getOrders() {
         return ordersRepository.findAll();
     }
 
     @Override
-    public void saveOrder(Order order) {
- ordersRepository.save(order);
+    public Optional<Order> getOrderById(Integer id) {
+        if(!ordersRepository.existsById(id))
+            throw new NotFoundException(id);
+        return ordersRepository.findById(id);
     }
 
     @Override
-    public Order getOrder(int id) {
-        Order order = null;
-        Optional<Order> newOrder = ordersRepository.findById(id);
-        if(newOrder.isPresent()){
-            order = newOrder.get();
-        }
-        return order;
+    public Order saveOrder(Order order) {
+        return ordersRepository.save(order);
     }
 
     @Override
-    public void deleteOrder(int id) {
-ordersRepository.deleteById(id);
+    public void updateOrder(Order order, Integer id) {
+        if(!ordersRepository.existsById(id))
+            throw new NotFoundException(id);
+
+        Order current = ordersRepository.getById(id);
+        current.updateOrer(order);
+        ordersRepository.save(current);
+    }
+
+    @Override
+    public void deleteOrder(Integer id) {
+        if(!ordersRepository.existsById(id))
+            throw new NotFoundException(id);
+        ordersRepository.deleteById(id);
     }
 }
 

@@ -1,4 +1,4 @@
-package com.car.rental.mycarrental.exception_handling;
+package com.car.rental.mycarrental.exception;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(Integer id){

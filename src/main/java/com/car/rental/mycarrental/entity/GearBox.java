@@ -68,4 +68,9 @@ public class GearBox {
     public String toString() {
         return gearBox;
     }
+
+    public void updateGearBox(GearBox gearBox) {
+       // this.setId(gearBox.getId());
+        this.setGearBox(gearBox.getGearBox());
+    }
 }

@@ -1,14 +1,17 @@
 package com.car.rental.mycarrental.service;
 
+import com.car.rental.mycarrental.entity.Car;
 import com.car.rental.mycarrental.entity.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface CustomerService {
-    public List<Customer> getAllCustomers();
-    public void saveCustomer(Customer customer);
-    public Customer getCustomer(int id);
-    public void deleteCustomer(int id);
+List<Customer> getCustomers();
+Optional<Customer> getCustomerById(Integer id);
+Customer saveCustomer(Customer customer);
+void updateCustomer(Customer customer, Integer id);
+void deleteCustomer(Integer id);
 }
